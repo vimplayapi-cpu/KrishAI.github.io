@@ -21,7 +21,7 @@ Import `master.sql` into the target MySQL/TiDB database before enabling the back
 
 ## GitHub Pages and custom domain
 
-Pages is configured through `.github/workflows/deploy-pages.yml`. After the repository is created, enable **Settings → Pages → GitHub Actions** as the source. The renamed repository is a user-site repository, so its standard site URL is `https://vimplayapi-cpu.github.io/`. No custom domain or `CNAME` file is configured.
+Pages is configured through `.github/workflows/deploy-pages.yml`. After the repository is created, enable **Settings → Pages → GitHub Actions** as the source. The renamed repository is a project-site repository, so its standard site URL is `https://vimplayapi-cpu.github.io/KrishAI.github.io/`. No custom domain or `CNAME` file is configured.
 
 ## Demo information
 
