@@ -159,6 +159,7 @@ function AuthScreen() {
         <button type="submit" disabled={pending} className="neu-button btn-vivid-orange w-full rounded-full px-6 py-3.5 font-display text-base font-semibold tracking-wider shadow-soft-sm transition-all active:scale-[0.97] disabled:opacity-60">
           {pending ? <span className="flex items-center justify-center gap-2"><Loader2 className="h-4 w-4 animate-spin" /> {mode === "register" ? "Creating account…" : "Signing in…"}</span> : mode === "register" ? "Create account" : `Enter as ${role === "farmer" ? "Farmer" : "Student"}`}
         </button>
+        {mode === "login" && <button type="button" onClick={() => { activateLocalDemoSession(); toast.success("Demo administrator access enabled."); }} className="w-full rounded-full border border-primary/20 bg-primary/10 py-2.5 text-xs font-semibold text-primary transition-all hover:bg-primary/15 active:scale-[0.98]">Enter demo workspace · demo / 123456</button>}
 
         <div className="flex items-center gap-2 text-xs text-muted-foreground"><Sprout className="h-3.5 w-3.5 text-accent" /><span>Free for everyone · Real data · Futuristic by design</span></div>
       </form>
