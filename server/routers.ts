@@ -74,7 +74,7 @@ export const appRouter = router({
         // Role chosen at login gates which features are visible. The owner account
         // always signs in as admin regardless of selection.
         const effectiveRole: string =
-          user.id === 1
+          user.role === "admin" || account.lastSelectedRole === "admin"
             ? "admin"
             : input.role === "student"
               ? "student"
@@ -86,6 +86,28 @@ export const appRouter = router({
         ctx.res.cookie(COOKIE_NAME, token, { ...cookieOptions, maxAge: 90 * 24 * 60 * 60 });
         await db.auditLog(user.id, "demo.login", "auth", `Demo login as ${account.username} role=${effectiveRole}`);
         return { success: true, role: effectiveRole } as const;
+      }),
+    register: publicProcedure
+      .input(z.object({
+        username: z.string().min(3).max(64).regex(/^[a-zA-Z0-9._-]+$/),
+        password: z.string().min(8).max(128),
+        name: z.string().min(2).max(200),
+        email: z.string().email().max(320).optional(),
+        role: z.enum(["farmer", "student"]),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        try {
+          const user = await db.createPasswordAccount(input);
+          const token = await sdk.createSessionToken(user.openId, { name: user.name ?? input.name, expiresInMs: 90 * 24 * 60 * 60 * 1000 });
+          const cookieOptions = getSessionCookieOptions(ctx.req);
+          ctx.res.cookie(COOKIE_NAME, token, { ...cookieOptions, maxAge: 90 * 24 * 60 * 60 });
+          await db.auditLog(user.id, "account.register", "auth", `Registered ${input.role} account ${input.username}`);
+          return { success: true, role: input.role } as const;
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Unable to create account";
+          if (message.includes("already registered")) throw new TRPCError({ code: "CONFLICT", message });
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message });
+        }
       }),
     /** Exposes whether the demo password login is available (true when a demo account exists). */
     demoAvailable: publicProcedure.query(async () => {

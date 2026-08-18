@@ -73,15 +73,29 @@ export default function OnboardingWizard({ onDone }: { onDone: () => void }) {
   const [purpose, setPurpose] = useState<string>("");
 
   const utils = trpc.useUtils();
-  const states = utils.profile.states.getData() ?? [];
-  const locations = Boolean(state) ? utils.profile.locations.getData({ state }) : undefined;
+  const statesQuery = trpc.profile.states.useQuery();
+  const locationsQuery = trpc.profile.locations.useQuery({ state }, { enabled: Boolean(state) });
+  const states = statesQuery.data ?? [];
+  const locations = locationsQuery.data;
   const districtNames = locations?.districts ? Object.keys(locations.districts as Record<string, unknown>) : [];
   const villages = district && locations?.districts?.[district] ? (locations.districts[district] as string[]) : [];
 
+  const createFarm = trpc.farms.create.useMutation();
   const updateProfile = trpc.profile.update.useMutation({
     onSuccess: async () => {
+      if (userType === "farmer" && farmName.trim()) {
+        await createFarm.mutateAsync({
+          name: farmName.trim(),
+          state: state || undefined,
+          district: district || undefined,
+          village: village || undefined,
+          soilType: soilType || undefined,
+          irrigation: irrigationAccess || undefined,
+        });
+      }
       await utils.profile.get.invalidate();
       await utils.dashboard.widgets.invalidate();
+      await utils.farms.list.invalidate();
       toast.success("Profile saved — your hub is ready!");
       onDone();
     },
@@ -107,9 +121,9 @@ export default function OnboardingWizard({ onDone }: { onDone: () => void }) {
       growingSeason: growingSeason || undefined,
       irrigationAccess: irrigationAccess || undefined,
       farmOwnerStatus: farmOwnerStatus || undefined,
-      experienceYears: experienceYears ? parseInt(experienceYears) : undefined,
-      farmName: farmName || undefined,
-      cropsOfInterest,
+        farmingExperienceYears: experienceYears ? parseInt(experienceYears) : undefined,
+        cropsOfInterest,
+        onboardingAnswers: { farmName: farmName || undefined, experienceYears },
       aboutMe: aboutMe || undefined,
     };
     const student = {
@@ -390,12 +404,12 @@ export default function OnboardingWizard({ onDone }: { onDone: () => void }) {
             <Button
               className="neu-button btn-vivid-teal font-ui text-white"
               onClick={() => setStep((s) => Math.min(stepCount - 1, s + 1))}
-              disabled={step === 1 && (!state || !district)}
+              disabled={(step === 0 && !userType) || (step === 1 && (!state || !district))}
             >
               Continue
             </Button>
           ) : (
-            <Button className="neu-button btn-vivid-green font-ui text-white" onClick={finish} disabled={updateProfile.isPending}>
+            <Button className="neu-button btn-vivid-green font-ui text-white" onClick={finish} disabled={updateProfile.isPending || createFarm.isPending}>
               {updateProfile.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
               Open My Hub
             </Button>

@@ -501,6 +501,51 @@ export async function listAuditLogs(limit = 100) {
   return db.select().from(auditLogs).orderBy(desc(auditLogs.createdAt)).limit(limit);
 }
 
+// ---------- Password accounts ----------
+export function hashPassword(password: string): string {
+  const salt = crypto.randomBytes(16);
+  const digest = crypto.pbkdf2Sync(password, salt, 600000, 32, "sha256");
+  return `${salt.toString("hex")}:${digest.toString("hex")}`;
+}
+
+export async function createPasswordAccount(input: {
+  username: string;
+  password: string;
+  name: string;
+  email?: string;
+  role: "farmer" | "student";
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const existing = await db.select({ id: demoAccounts.id }).from(demoAccounts).where(eq(demoAccounts.username, input.username)).limit(1);
+  if (existing.length > 0) throw new Error("Username is already registered");
+
+  const openId = `local:${input.username}:${crypto.randomUUID()}`;
+  await db.insert(users).values({
+    openId,
+    name: input.name,
+    email: input.email ?? null,
+    loginMethod: "password",
+    role: input.role,
+  });
+  const user = await getUserByOpenId(openId);
+  if (!user) throw new Error("Unable to create user account");
+  await db.insert(demoAccounts).values({
+    username: input.username,
+    passwordHash: hashPassword(input.password),
+    userId: user.id,
+    lastSelectedRole: input.role,
+    active: 1,
+  });
+  await upsertProfile(user.id, {
+    userType: input.role,
+    fullName: input.name,
+    email: input.email ?? undefined,
+    onboardingComplete: false,
+  });
+  return user;
+}
+
 // ---------- Demo account (password auth) ----------
 export async function getDemoAccount(username: string) {
   const db = await getDb();
