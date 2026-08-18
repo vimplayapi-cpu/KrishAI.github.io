@@ -38,8 +38,11 @@ jobs:
         env:
           VITE_APP_TITLE: KrishAI Hub
 
-      - name: Prepare SPA fallback
-        run: cp dist/index.html dist/404.html
+      - name: Prepare static entry points
+        run: |
+          cp dist/index.html dist/404.html
+          cp admin.html dist/admin.html
+          cp .nojekyll dist/.nojekyll
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
