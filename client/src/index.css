@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@source "../";
 
 /* ============ KrishAI Hub — Real Neumorphism (Light Clay) Design System ============
    Palette inspired by the moodboard: warm clay background, sage, blue-grey,

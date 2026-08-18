@@ -1,11 +1,12 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import path from "node:path";
 
 export default defineConfig(({ mode }) => ({
   root: path.resolve(__dirname, "./client"),
   base: mode === "production" ? "/KrishAI.github.io/" : "/",
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client/src"),
