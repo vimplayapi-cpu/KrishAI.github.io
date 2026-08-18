@@ -4,7 +4,7 @@ import path from "node:path";
 
 export default defineConfig(({ mode }) => ({
   root: path.resolve(__dirname, "./client"),
-  base: mode === "production" ? "/KrishAI-Hub/" : "/",
+  base: "/",
   plugins: [react()],
   resolve: {
     alias: {

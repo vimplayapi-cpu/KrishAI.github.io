@@ -21,7 +21,7 @@ Import `master.sql` into the target MySQL/TiDB database before enabling the back
 
 ## GitHub Pages and custom domain
 
-Pages is configured through `.github/workflows/deploy-pages.yml`. After the repository is created, enable **Settings → Pages → GitHub Actions** as the source. A custom domain can then be added in Pages settings or committed as a root-level `CNAME` file once the exact domain name is supplied. DNS must point the domain to GitHub Pages according to GitHub's current Pages documentation.
+Pages is configured through `.github/workflows/deploy-pages.yml`. After the repository is created, enable **Settings → Pages → GitHub Actions** as the source. The renamed repository is a user-site repository, so its standard site URL is `https://vimplayapi-cpu.github.io/`. No custom domain or `CNAME` file is configured.
 
 ## Demo information
 
