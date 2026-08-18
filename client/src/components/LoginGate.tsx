@@ -4,7 +4,7 @@ import { BookOpen, Loader2, Lock, Sprout, Tractor, UserRound } from "lucide-reac
 import { useState } from "react";
 import { toast } from "sonner";
 
-const LOGO = "/manus-storage/krishai-logo-3d_27b8131e.png";
+const LOGO = `${import.meta.env.BASE_URL}krishai-logo.svg`;
 
 /**
  * LoginGate: KrishAI Hub is fully protected — no route is accessible without

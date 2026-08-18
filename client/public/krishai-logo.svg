@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">KrishAI Hub logo</title>
+  <desc id="desc">A green sprout inside a warm gold sun with a dark agricultural field.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7dca4"/>
+      <stop offset="1" stop-color="#f3b56b"/>
+    </linearGradient>
+    <linearGradient id="field" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#315b43"/>
+      <stop offset="1" stop-color="#16372c"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="48" fill="url(#sky)"/>
+  <circle cx="185" cy="70" r="34" fill="#fff2bd" opacity=".95"/>
+  <path d="M0 171c41-23 76-27 112-12 42 17 79 4 144-20v117H0Z" fill="url(#field)"/>
+  <path d="M128 204c-1-44 1-83 7-112" fill="none" stroke="#f6f0d0" stroke-width="10" stroke-linecap="round"/>
+  <path d="M133 135c-31 1-53-17-58-45 28-3 53 9 58 45Z" fill="#4b9b62"/>
+  <path d="M134 119c7-30 29-47 58-46-3 28-24 47-58 46Z" fill="#2f774e"/>
+  <path d="M58 217h140" stroke="#e8c278" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+  <path d="M47 238h162" stroke="#7ab26d" stroke-width="7" stroke-linecap="round" opacity=".8"/>
+</svg>

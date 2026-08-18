@@ -25,7 +25,7 @@ const USER_TYPES = [
   { id: "business", label: "Business", desc: "Agri products & services" },
 ];
 
-const LOGO = "/manus-storage/krishai-logo-3d_27b8131e.png";
+const LOGO = `${import.meta.env.BASE_URL}krishai-logo.svg`;
 
 const SOIL_TYPES = ["Clay", "Sandy", "Loamy", "Silty", "Peaty", "Chalky", "Laterite", "Black Cotton (Regur)", "Alluvial", "Red Soil"];
 const RAINFALL_TYPES = ["High (> 200 cm)", "Medium (100–200 cm)", "Low (50–100 cm)", "Very Low (< 50 cm)", "Irrigated only"];

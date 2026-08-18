@@ -11,7 +11,7 @@ import ApprovalsPanel from "./ApprovalsPanel";
 import UploadsManager from "./UploadsManager";
 import UserDetails360 from "./UserDetails360";
 
-const LOGO = "/manus-storage/krishai-logo-3d_27b8131e.png";
+const LOGO = `${import.meta.env.BASE_URL}krishai-logo.svg`;
 
 type Section = "overview" | "users" | "approvals" | "uploads" | "user360" | "admin";
 

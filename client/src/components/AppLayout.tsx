@@ -32,7 +32,7 @@ import {
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 
-const LOGO = "/manus-storage/krishai-logo-3d_27b8131e.png";
+const LOGO = `${import.meta.env.BASE_URL}krishai-logo.svg`;
 
 const NAV = [
   { icon: Activity, label: "Dashboard", path: "/" },
