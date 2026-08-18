@@ -1,4 +1,4 @@
-import { useAuth } from "@/_core/hooks/useAuth";
+import { activateLocalDemoSession, clearLocalDemoSession, isLocalDemoActive, useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { BookOpen, Loader2, Lock, Sprout, Tractor } from "lucide-react";
 import { useState } from "react";
@@ -51,6 +51,11 @@ function AuthScreen() {
     event.preventDefault();
     if (login.isPending || register.isPending) return;
     const cleanUsername = username.trim();
+    if (mode === "login" && cleanUsername.toLowerCase() === "demo" && password === "123456") {
+      activateLocalDemoSession();
+      toast.success("Demo administrator access enabled.");
+      return;
+    }
     if (mode === "login") {
       if (!cleanUsername || !password) {
         toast.error("Enter your username and password.");
@@ -88,7 +93,7 @@ function AuthScreen() {
       <div className="absolute -right-32 bottom-1/4 h-96 w-96 rounded-full bg-lavender/30 blur-3xl" />
       <div className="absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-peach/20 blur-3xl" />
 
-      <form onSubmit={submit} className="neu-raised relative z-10 flex w-full max-w-md flex-col items-center gap-5 rounded-[2rem] p-6 sm:p-8">
+      <form noValidate onSubmit={submit} className="neu-raised relative z-10 flex w-full max-w-md flex-col items-center gap-5 rounded-[2rem] p-6 sm:p-8">
         <img src={LOGO} alt="KrishAI Hub logo" className="h-24 w-24 rounded-full object-cover shadow-soft-md" />
         <div className="text-center">
           <h1 className="font-display text-4xl font-bold tracking-wide text-ink">KrishAI Hub</h1>
@@ -164,5 +169,11 @@ function AuthScreen() {
 export function LogoutButton({ className }: { className?: string }) {
   const utils = trpc.useUtils();
   const logout = trpc.auth.logout.useMutation({ onSuccess: () => utils.auth.me.invalidate() });
-  return <button className={`rounded-full px-4 py-2 text-sm font-semibold text-muted-foreground shadow-soft-xs transition-all hover:text-ink active:shadow-inset-sm ${className ?? ""}`} onClick={() => logout.mutate()}>Log out</button>;
+  return <button className={`rounded-full px-4 py-2 text-sm font-semibold text-muted-foreground shadow-soft-xs transition-all hover:text-ink active:shadow-inset-sm ${className ?? ""}`} onClick={() => {
+    if (isLocalDemoActive()) {
+      clearLocalDemoSession();
+      return;
+    }
+    logout.mutate();
+  }}>Log out</button>;
 }
