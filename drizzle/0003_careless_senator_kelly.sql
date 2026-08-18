@@ -1,0 +1,1 @@
+ALTER TABLE `demoAccounts` ADD `lastSelectedRole` enum('farmer','student','admin') DEFAULT 'farmer' NOT NULL;

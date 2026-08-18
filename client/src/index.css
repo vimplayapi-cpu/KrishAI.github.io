@@ -1,0 +1,371 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ============ KrishAI Hub — Real Neumorphism (Light Clay) Design System ============
+   Palette inspired by the moodboard: warm clay background, sage, blue-grey,
+   lavender and peach surfaces with deep soft dual shadows and pressed insets. */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-clay: oklch(0.955 0.008 300);
+  --color-background: oklch(0.955 0.008 300);
+  --color-foreground: oklch(0.32 0.02 280);
+  --color-card: oklch(0.945 0.01 300);
+  --color-card-foreground: oklch(0.32 0.02 280);
+  --color-popover: oklch(0.945 0.01 300);
+  --color-popover-foreground: oklch(0.32 0.02 280);
+  --color-primary: oklch(0.55 0.11 165);
+  --color-primary-foreground: oklch(0.98 0.005 300);
+  --color-secondary: oklch(0.92 0.012 300);
+  --color-secondary-foreground: oklch(0.4 0.02 280);
+  --color-muted: oklch(0.92 0.012 300);
+  --color-muted-foreground: oklch(0.52 0.02 280);
+  --color-accent: oklch(0.55 0.11 165);
+  --color-accent-foreground: oklch(0.98 0.005 300);
+  --color-destructive: oklch(0.6 0.18 25);
+  --color-destructive-foreground: oklch(0.98 0.005 25);
+  --color-border: oklch(0.9 0.012 300);
+  --color-input: oklch(0.935 0.01 300);
+  --color-ring: oklch(0.55 0.11 165);
+  /* brand surfaces from the moodboard */
+  --color-sage: oklch(0.85 0.045 145);
+  --color-sage-deep: oklch(0.72 0.07 155);
+  --color-bluegrey: oklch(0.8 0.03 240);
+  --color-lavender: oklch(0.85 0.04 310);
+  --color-peach: oklch(0.87 0.055 60);
+  --color-ink: oklch(0.32 0.02 280);
+  /* vivid accents for buttons & headings (light background kept) */
+  --color-vivid-green: oklch(0.6 0.16 155);
+  --color-vivid-green-foreground: oklch(0.98 0.005 300);
+  --color-vivid-teal: oklch(0.6 0.12 200);
+  --color-vivid-teal-foreground: oklch(0.98 0.005 300);
+  --color-vivid-purple: oklch(0.6 0.15 300);
+  --color-vivid-purple-foreground: oklch(0.98 0.005 300);
+  --color-vivid-orange: oklch(0.7 0.15 55);
+  --color-vivid-orange-foreground: oklch(0.98 0.005 300);
+  --color-vivid-blue: oklch(0.58 0.16 255);
+  --color-vivid-blue-foreground: oklch(0.98 0.005 300);
+  --color-vivid-rose: oklch(0.65 0.17 15);
+  --color-vivid-rose-foreground: oklch(0.98 0.005 300);
+  --color-vivid-gold: oklch(0.72 0.13 90);
+  --color-vivid-gold-foreground: oklch(0.3 0.04 90);
+  --color-chart-1: oklch(0.72 0.07 155);
+  --color-chart-2: oklch(0.85 0.04 310);
+  --color-chart-3: oklch(0.87 0.055 60);
+  --color-chart-4: oklch(0.8 0.03 240);
+  --color-chart-5: oklch(0.78 0.09 85);
+  --color-success: oklch(0.62 0.1 155);
+  --color-warning: oklch(0.78 0.09 85);
+  --color-info: oklch(0.55 0.11 165);
+  --font-sans: "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Quicksand", "Nunito Sans", sans-serif;
+  --font-ui: "Nunito Sans", sans-serif;
+  --radius-sm: 1rem;
+  --radius-md: 1.5rem;
+  --radius-lg: 2rem;
+}
+
+@layer base {
+  :root {
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    /* True neumorphic shadow tokens */
+    --neu-shadow-lg:
+      10px 10px 24px oklch(0.8 0.02 300 / 0.55),
+      -10px -10px 24px oklch(0.995 0.002 300 / 0.9);
+    --neu-shadow-md:
+      7px 7px 16px oklch(0.8 0.02 300 / 0.5),
+      -7px -7px 16px oklch(0.995 0.002 300 / 0.9);
+    --neu-shadow-sm:
+      5px 5px 12px oklch(0.8 0.02 300 / 0.45),
+      -5px -5px 12px oklch(0.995 0.002 300 / 0.9);
+    --neu-shadow-xs:
+      3px 3px 8px oklch(0.8 0.02 300 / 0.4),
+      -3px -3px 8px oklch(0.995 0.002 300 / 0.9);
+    --neu-inset:
+      inset 6px 6px 12px oklch(0.8 0.02 300 / 0.55),
+      inset -6px -6px 12px oklch(0.995 0.002 300 / 0.9);
+    --neu-inset-sm:
+      inset 3px 3px 7px oklch(0.8 0.02 300 / 0.5),
+      inset -3px -3px 7px oklch(0.995 0.002 300 / 0.9);
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    background: var(--color-clay);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-foreground);
+    background:
+      radial-gradient(1100px 550px at 90% -10%, oklch(0.85 0.04 310 / 0.25), transparent 55%),
+      radial-gradient(900px 500px at -5% 110%, oklch(0.87 0.055 60 / 0.2), transparent 55%),
+      radial-gradient(700px 400px at 50% 120%, oklch(0.85 0.045 145 / 0.12), transparent 50%),
+      linear-gradient(180deg, oklch(0.958 0.008 300), oklch(0.93 0.012 300));
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: oklch(0.55 0.11 165 / 0.25);
+    color: var(--color-ink);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.85 0.02 300);
+    border-radius: 12px;
+    border: 3px solid var(--color-clay);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.75 0.03 300);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-ui {
+    font-family: var(--font-ui);
+  }
+
+  /* ============ Neumorphic surfaces ============ */
+  .neu-raised {
+    background: linear-gradient(150deg, oklch(0.965 0.006 300), oklch(0.93 0.012 300));
+    box-shadow: var(--neu-shadow-lg);
+    border: 1px solid oklch(0.995 0.002 300 / 0.6);
+  }
+  .neu {
+    background: linear-gradient(150deg, oklch(0.96 0.007 300), oklch(0.935 0.011 300));
+    box-shadow: var(--neu-shadow-md);
+    border: 1px solid oklch(0.995 0.002 300 / 0.6);
+  }
+  .neu-pressed {
+    background: linear-gradient(150deg, oklch(0.925 0.013 300), oklch(0.94 0.01 300));
+    box-shadow: var(--neu-inset);
+    border: 1px solid oklch(0.8 0.02 300 / 0.25);
+  }
+
+  .shadow-soft-lg { box-shadow: var(--neu-shadow-lg); }
+  .shadow-soft-md { box-shadow: var(--neu-shadow-md); }
+  .shadow-soft-sm { box-shadow: var(--neu-shadow-sm); }
+  .shadow-soft-xs { box-shadow: var(--neu-shadow-xs); }
+  .shadow-inset { box-shadow: var(--neu-inset); }
+  .shadow-inset-sm { box-shadow: var(--neu-inset-sm); }
+  .shadow-glow:focus-visible { box-shadow: var(--neu-shadow-sm), 0 0 0 3px oklch(0.55 0.11 165 / 0.3); }
+
+  .neu-button {
+    background: linear-gradient(150deg, oklch(0.96 0.007 300), oklch(0.93 0.011 300));
+    box-shadow: var(--neu-shadow-sm);
+    border: 1px solid oklch(0.995 0.002 300 / 0.6);
+    transition: all 160ms var(--ease-out);
+    cursor: pointer;
+  }
+  .neu-button:hover {
+    box-shadow: var(--neu-shadow-md);
+  }
+  .neu-button:active {
+    transform: scale(0.97);
+    background: linear-gradient(150deg, oklch(0.925 0.013 300), oklch(0.94 0.01 300));
+    box-shadow: var(--neu-inset-sm);
+    transition-duration: 100ms;
+  }
+
+  .neu-input {
+    background: linear-gradient(150deg, oklch(0.945 0.01 300), oklch(0.925 0.013 300));
+    box-shadow: var(--neu-inset-sm);
+    border: 1px solid transparent;
+  }
+
+  /* ============ Brand surface chips ============ */
+  .surface-sage {
+    background: linear-gradient(150deg, oklch(0.88 0.04 145), oklch(0.82 0.05 150));
+    box-shadow: var(--neu-shadow-sm);
+    border: 1px solid oklch(0.995 0.002 300 / 0.5);
+  }
+  .surface-bluegrey {
+    background: linear-gradient(150deg, oklch(0.84 0.028 240), oklch(0.77 0.035 245));
+    box-shadow: var(--neu-shadow-sm);
+    border: 1px solid oklch(0.995 0.002 300 / 0.5);
+  }
+  .surface-lavender {
+    background: linear-gradient(150deg, oklch(0.89 0.035 310), oklch(0.82 0.045 315));
+    box-shadow: var(--neu-shadow-sm);
+    border: 1px solid oklch(0.995 0.002 300 / 0.5);
+  }
+  .surface-peach {
+    background: linear-gradient(150deg, oklch(0.9 0.045 60), oklch(0.84 0.06 62));
+    box-shadow: var(--neu-shadow-sm);
+    border: 1px solid oklch(0.995 0.002 300 / 0.5);
+  }
+  .surface-rose {
+    background: linear-gradient(150deg, oklch(0.9 0.05 15), oklch(0.84 0.065 18));
+    box-shadow: var(--neu-shadow-sm);
+    border: 1px solid oklch(0.995 0.002 300 / 0.5);
+    color: oklch(0.5 0.16 18);
+  }
+  .surface-sage-deep {
+    background: linear-gradient(150deg, oklch(0.76 0.065 155), oklch(0.68 0.08 158));
+    box-shadow: var(--neu-shadow-sm);
+    border: 1px solid oklch(0.995 0.002 300 / 0.35);
+    color: oklch(0.97 0.01 155);
+  }
+
+  /* ============ Vivid colorful surfaces (for buttons & headings, light bg kept) ============ */
+  .btn-vivid-green { background: linear-gradient(150deg, oklch(0.68 0.15 152), oklch(0.57 0.17 158)); box-shadow: 4px 4px 10px oklch(0.57 0.17 158 / 0.45), -4px -4px 10px oklch(0.995 0.002 300 / 0.9); border: 1px solid oklch(0.995 0.002 300 / 0.25); color: var(--color-vivid-green-foreground); }
+  .btn-vivid-green:active { box-shadow: inset 3px 3px 7px oklch(0.42 0.14 158 / 0.5); }
+  .btn-vivid-teal { background: linear-gradient(150deg, oklch(0.68 0.11 200), oklch(0.57 0.13 205)); box-shadow: 4px 4px 10px oklch(0.57 0.13 205 / 0.45), -4px -4px 10px oklch(0.995 0.002 300 / 0.9); border: 1px solid oklch(0.995 0.002 300 / 0.25); color: var(--color-vivid-teal-foreground); }
+  .btn-vivid-teal:active { box-shadow: inset 3px 3px 7px oklch(0.42 0.11 205 / 0.5); }
+  .btn-vivid-purple { background: linear-gradient(150deg, oklch(0.68 0.14 300), oklch(0.57 0.16 305)); box-shadow: 4px 4px 10px oklch(0.57 0.16 305 / 0.45), -4px -4px 10px oklch(0.995 0.002 300 / 0.9); border: 1px solid oklch(0.995 0.002 300 / 0.25); color: var(--color-vivid-purple-foreground); }
+  .btn-vivid-purple:active { box-shadow: inset 3px 3px 7px oklch(0.42 0.14 305 / 0.5); }
+  .btn-vivid-orange { background: linear-gradient(150deg, oklch(0.76 0.14 55), oklch(0.66 0.16 58)); box-shadow: 4px 4px 10px oklch(0.66 0.16 58 / 0.45), -4px -4px 10px oklch(0.995 0.002 300 / 0.9); border: 1px solid oklch(0.995 0.002 300 / 0.25); color: var(--color-vivid-orange-foreground); }
+  .btn-vivid-orange:active { box-shadow: inset 3px 3px 7px oklch(0.5 0.14 58 / 0.5); }
+  .btn-vivid-blue { background: linear-gradient(150deg, oklch(0.66 0.15 255), oklch(0.55 0.17 260)); box-shadow: 4px 4px 10px oklch(0.55 0.17 260 / 0.45), -4px -4px 10px oklch(0.995 0.002 300 / 0.9); border: 1px solid oklch(0.995 0.002 300 / 0.25); color: var(--color-vivid-blue-foreground); }
+  .btn-vivid-blue:active { box-shadow: inset 3px 3px 7px oklch(0.4 0.15 260 / 0.5); }
+  .btn-vivid-rose { background: linear-gradient(150deg, oklch(0.72 0.16 15), oklch(0.61 0.18 18)); box-shadow: 4px 4px 10px oklch(0.61 0.18 18 / 0.45), -4px -4px 10px oklch(0.995 0.002 300 / 0.9); border: 1px solid oklch(0.995 0.002 300 / 0.25); color: var(--color-vivid-rose-foreground); }
+  .btn-vivid-rose:active { box-shadow: inset 3px 3px 7px oklch(0.46 0.16 18 / 0.5); }
+  .btn-vivid-gold { background: linear-gradient(150deg, oklch(0.8 0.12 90), oklch(0.68 0.14 92)); box-shadow: 4px 4px 10px oklch(0.68 0.14 92 / 0.4), -4px -4px 10px oklch(0.995 0.002 300 / 0.9); border: 1px solid oklch(0.995 0.002 300 / 0.25); color: var(--color-vivid-gold-foreground); }
+  .btn-vivid-gold:active { box-shadow: inset 3px 3px 7px oklch(0.52 0.12 92 / 0.5); }
+
+  .text-vivid-green { color: var(--color-vivid-green); }
+  .text-vivid-teal { color: var(--color-vivid-teal); }
+  .text-vivid-purple { color: var(--color-vivid-purple); }
+  .text-vivid-orange { color: var(--color-vivid-orange); }
+  .text-vivid-blue { color: var(--color-vivid-blue); }
+  .text-vivid-rose { color: var(--color-vivid-rose); }
+  .text-vivid-gold { color: var(--color-vivid-gold); }
+
+  /* ============ Glass surface (light) ============ */
+  .glass {
+    background: oklch(0.95 0.01 300 / 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--neu-shadow-sm);
+    border: 1px solid oklch(0.995 0.002 300 / 0.7);
+  }
+
+  /* ============ Clay background variants ============ */
+  .bg-clay { background: var(--color-clay); }
+
+  /* ============ 3D tilt card ============ */
+  .card-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 250ms var(--ease-out);
+  }
+
+  /* ============ Grid overlay ============ */
+  .bg-grid {
+    background-image:
+      linear-gradient(oklch(0.55 0.11 165 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.55 0.11 165 / 0.04) 1px, transparent 1px);
+    background-size: 46px 46px;
+  }
+
+  /* ============ Cursor ============ */
+  .cursor-none-default {
+    cursor: none;
+  }
+  @media (pointer: coarse) {
+    .cursor-none-default {
+      cursor: auto;
+    }
+  }
+
+  /* ============ Pulsing dot ============ */
+  @keyframes neu-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(1.15); }
+  }
+  .animate-pulse-slow {
+    animation: neu-pulse 2.4s var(--ease-in-out) infinite;
+  }
+
+  /* ============ Float ============ */
+  @keyframes neu-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .animate-float {
+    animation: neu-float 6s var(--ease-in-out) infinite;
+  }
+
+  /* ============ Orbit ring rotation ============ */
+  @keyframes neu-spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .animate-spin-slow {
+    animation: neu-spin-slow 24s linear infinite;
+  }
+
+  /* ============ Scan sweep ============ */
+  @keyframes neu-sweep {
+    0% { top: 0%; }
+    100% { top: 100%; }
+  }
+  .animate-sweep {
+    animation: neu-sweep 2.2s var(--ease-in-out) infinite;
+  }
+
+  /* ============ Gradient text (soft clay version) ============ */
+  .gradient-text {
+    background: linear-gradient(115deg, oklch(0.5 0.1 155), oklch(0.55 0.11 165) 45%, oklch(0.68 0.07 150));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ============ Segmented control / toggle ============ */
+  .neu-segment {
+    background: linear-gradient(150deg, oklch(0.92 0.014 300), oklch(0.945 0.01 300));
+    box-shadow: var(--neu-inset-sm);
+    border: 1px solid oklch(0.995 0.002 300 / 0.6);
+    border-radius: 9999px;
+    padding: 4px;
+  }
+  .neu-segment-active {
+    background: linear-gradient(150deg, oklch(0.88 0.04 145), oklch(0.8 0.055 150));
+    box-shadow: var(--neu-shadow-xs);
+    color: oklch(0.25 0.04 155);
+    border-radius: 9999px;
+  }
+
+  /* ============ Neumorphic toggle switch ============ */
+  .neu-toggle-track {
+    background: linear-gradient(150deg, oklch(0.92 0.014 300), oklch(0.945 0.01 300));
+    box-shadow: var(--neu-inset-sm);
+    border-radius: 9999px;
+    transition: background 200ms var(--ease-out);
+  }
+  .neu-toggle-thumb {
+    background: linear-gradient(150deg, oklch(0.975 0.004 300), oklch(0.94 0.01 300));
+    box-shadow: var(--neu-shadow-xs);
+    border-radius: 9999px;
+    transition: transform 200ms var(--ease-out);
+  }
+
+  /* ============ Progress bar ============ */
+  .neu-progress-track {
+    background: linear-gradient(150deg, oklch(0.92 0.014 300), oklch(0.945 0.01 300));
+    box-shadow: var(--neu-inset-sm);
+    border-radius: 9999px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* allowed motion */
+  }
+}
