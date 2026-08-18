@@ -22,6 +22,10 @@ import Research from "./pages/Research";
 import Scan from "./pages/Scan";
 
 function Router() {
+  // The standalone admin.html entry launches the real admin console through a query flag.
+  if (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("admin") === "1") {
+    return <AdminGate />;
+  }
   // Every route is protected behind the login gate.
   return (
     <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
