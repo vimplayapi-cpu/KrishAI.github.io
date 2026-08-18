@@ -4,7 +4,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import CustomCursor from "@/components/CustomCursor";
 import LoginGate from "@/components/LoginGate";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Router as WouterRouter, Switch } from "wouter";
 import RoleGuard from "./components/RoleGuard";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -24,7 +24,8 @@ import Scan from "./pages/Scan";
 function Router() {
   // Every route is protected behind the login gate.
   return (
-    <Switch>
+    <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+      <Switch>
       <Route path={"/"}>
         <RoleGuard allowed={["farmer", "student", "admin"]}>
           <Dashboard />
@@ -91,8 +92,9 @@ function Router() {
       </Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
+        <Route component={NotFound} />
+      </Switch>
+    </WouterRouter>
   );
 }
 
