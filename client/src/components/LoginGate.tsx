@@ -25,8 +25,8 @@ export default function LoginGate({ children }: { children: React.ReactNode }) {
 function AuthScreen() {
   const [mode, setMode] = useState<"login" | "register">("login");
   const [role, setRole] = useState<Role>("farmer");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("demo");
+  const [password, setPassword] = useState("123456");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const utils = trpc.useUtils();
