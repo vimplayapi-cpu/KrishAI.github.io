@@ -9,6 +9,8 @@ import RoleGuard from "./components/RoleGuard";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { AdminGate } from "./components/AdminGate";
+import DemoHub from "./demo/DemoHub";
+import { isLocalDemoActive } from "@/_core/hooks/useAuth";
 import Advisor from "./pages/Advisor";
 import Advisory from "./pages/Advisory";
 import Dashboard from "./pages/Dashboard";
@@ -26,7 +28,9 @@ function Router() {
   if (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("admin") === "1") {
     return <AdminGate />;
   }
-  // Every route is protected behind the login gate.
+  // Every route is protected behind the login gate. The demo workspace is fully local
+  // so GitHub Pages does not call unfinished backend procedures.
+  if (isLocalDemoActive()) return <DemoHub />;
   return (
     <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
       <Switch>
